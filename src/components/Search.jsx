@@ -6,7 +6,7 @@ class Search extends Component {
       <div id='search' className="input-group mb-3">
 				<input type="text" className="form-control" placeholder="Title..." aria-label="Title" aria-describedby="button-addon2" />
 				<div className="input-group-append">
-					<button className="btn btn-outline-info btn-lg" type="button" id="search">Search</button>
+					<button className="btn btn-outline-info btn-lg" type="button" id="searchBtn">Search</button>
 				</div>
 			</div>
     );

@@ -1,10 +1,16 @@
 .App {
-  margin: 10px 10px;
+	margin: 10px 10px;
+	justify-content: center;
 }
 /**----------------------------------------------Form------------------------------------------------------**/
 #create {
 	padding: 10px 10px;
-	margin: 10px 0;
+	width: 80%;
+	margin: 10px auto 10px auto;
+	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+	background: #4e54c8;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #priorityDD {
@@ -12,12 +18,16 @@
 	width: 100px;
 }
 #submit {
-	
 	width: 150px;
 }
+/**----------------------------------------------Search----------------------------------------------------**/
 
+#search {
+	width: 80%;
+	margin: auto;
+}
 
-/**----------------------------------------------Table------------------------------------------------------**/
+/**----------------------------------------------Attr------------------------------------------------------**/
 
 #attr{
 	display:flex;
@@ -25,9 +35,10 @@
 	width:100%;
 	justify-content: space-evenly;
 	align-items: center;
+	margin-bottom: 2px;
 }
 
-.title{
+.titleAttr{
 	flex-grow: 1;
 	color: white;
 	background-color: black;
@@ -37,11 +48,34 @@
 	padding: 6px 12px;
 	margin: 0;
 	text-align: center;
+	width: 100%;
 }
 
-button {
+#attr button {
 	outline: none;
-	border: none;
 	flex-grow: 1;
+	width: 100%;
+}
+
+/**----------------------------------------------Table------------------------------------------------------**/
+
+#table {
+	display: flex;
+	flex-direction: row;
+	width: calc( 100vw - 50px);
+	justify-content: space-evenly;
+	align-items:center;
+	height: 3em;
+	border: 2px solid rgb(253, 3, 3);
+	color: red;
+	margin: 0px 15px;
+	padding: 0;
+	border-radius: 5px;
+}
+
+#table div{
+	flex-grow: 1;
+	height: 100%;
+	width: 100%;
 }
 

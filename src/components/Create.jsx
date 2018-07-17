@@ -40,11 +40,11 @@ class Create extends Component {
 
   render() {
     return (
-      <div id='create' className='card text-white bg-dark'>
+      <div id='create' className='card text-white'>
 				<form onSubmit={this.onSubmit}>
 					<div className='form-group row'>
 						<label className='col-sm-1 col-form-label'>Title</label>
-						<div className='col-sm-11'>
+						<div className='col-sm-8'>
 							<input type='text' value={this.state.title} className='form-control' placeholder='Assignment Title...' onChange={this.handleChange} />
 						</div>
 					</div>

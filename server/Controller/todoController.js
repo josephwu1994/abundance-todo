@@ -20,7 +20,7 @@ module.exports = {
 		}
 		base('Assignment').create(data, (err, todo) => {
 			if(err) console.log(err);
-			res.json(todo.getId());
+			res.json({...data, id: todo.getId()});
 		})
 	}
 }

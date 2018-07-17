@@ -4,10 +4,10 @@ class Attributes extends Component {
   render() {
     return (
       <div id='attr' className="container-fluid">
-				<div className="title"><span>Title</span></div>
-				<button type='button' id='priority' className='btn btn-outline-primary'>Priority</button>
-				<button type='button' id='status' className='btn btn-outline-primary'>Status</button>
-				<button type='button' id='duedate' className='btn btn-outline-primary'>Due Date</button>
+				<div className="titleAttr">Title</div>
+				<button type='button' id='priorityAttr' className='btn btn-outline-primary'>Priority</button>
+				<button type='button' id='statusAttr' className='btn btn-outline-primary'>Status</button>
+				<button type='button' id='duedateAttr' className='btn btn-outline-primary'>Due Date</button>
       </div>
     );
   }

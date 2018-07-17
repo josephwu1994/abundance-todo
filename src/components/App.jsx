@@ -8,7 +8,8 @@ class App extends Component {
 	constructor(){
 		super()
 		this.state = {
-			todo: []
+			todo: [],
+			searchResult: []
 		}
 		this.addTodo = this.addTodo.bind(this);
 	}
@@ -21,13 +22,14 @@ class App extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(task)
-		}).then(res => res.json())
+		})
+		.then(res => res.json())
 		.then(json => {
 			const arr = this.state.todo;
 			arr.push(json);
 			this.setState({todo: arr});
 		})
-		.catch(err => console.log('Failed to post todo '+ todo))
+		.catch(err => console.log('Failed to post todo '+ err))
 	}
 
   render() {
