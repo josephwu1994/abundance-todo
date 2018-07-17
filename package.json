@@ -1,0 +1,31 @@
+{
+  "name": "abundance-todo",
+	"version": "0.1.0",
+	"repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephwu1994/abundance-todo"
+	},
+  "dependencies": {
+    "airtable": "^0.5.6",
+    "babel-loader": "^7.1.5",
+    "body-parser": "^1.18.3",
+    "css-loader": "^1.0.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "node": "^10.6.0",
+    "nodemon": "^1.18.2",
+    "react": "^16.4.1",
+    "react-datepicker": "^1.5.0",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.1"
+  },
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "build": "webpack -w",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
