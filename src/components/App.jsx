@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Attributes from "./Attributes.jsx";
 import Search from "./Search.jsx";
 import Create from "./Create.jsx";
-import Table from "./Table.jsx";
+import Task from "./Task.jsx";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { PacmanLoader } from "react-spinners";
@@ -87,7 +87,7 @@ class App extends Component {
       if (this.state.searchResult.length > 0)
         displayArr = this.state.searchResult;
       else displayArr = this.state.todos;
-      const table = displayArr.map(todo => {
+      const tasks = displayArr.map(todo => {
         let style = {};
         todo.Status === "Complete"
           ? (style = { boxShadow: "0 0 10px 1px rgb(13, 240, 5)" })
@@ -99,7 +99,7 @@ class App extends Component {
               defaultChecked={todo.Status === "Complete"}
               onChange={() => this.handleChange(todo.id)}
             />
-            <Table style={style} todo={todo} key={todo.id} />
+            <Task style={style} todo={todo} key={todo.id} />
           </div>
         );
       });
@@ -108,7 +108,7 @@ class App extends Component {
           <Create addTodo={this.addTodo} />
           <Search todos={this.state.todos} filter={this.filter} />
           <Attributes todos={this.state.todos} filter={this.filter} />
-          {table}
+          {tasks}
         </div>
       );
     }

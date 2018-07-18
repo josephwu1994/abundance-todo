@@ -1,3 +1,13 @@
+/**
+ * ************************************
+ *
+ * @module  Ｓearch
+ * @author  josephwu1994
+ * @date    6/17/2018
+ * @description search bar to filter todos
+ *
+ * ************************************
+ */
 import React, { Component } from "react";
 
 class Search extends Component {

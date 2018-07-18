@@ -1,3 +1,13 @@
+/**
+ * ************************************
+ *
+ * @module  Attributes
+ * @author  josephwu1994
+ * @date    6/17/2018
+ * @description allow the todos to arrange by attributes
+ *
+ * ************************************
+ */
 import React, { Component } from "react";
 
 class Attributes extends Component {

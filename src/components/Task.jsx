@@ -1,6 +1,16 @@
+/**
+ * ************************************
+ *
+ * @module  Task
+ * @author  josephwu1994
+ * @date    6/17/2018
+ * @description list todos and check off todos
+ *
+ * ************************************
+ */
 import React, { Component } from "react";
 
-class Table extends Component {
+class Task extends Component {
   render() {
     return (
       <div id="table" style={this.props.style} className="container-fluid">
@@ -21,4 +31,4 @@ class Table extends Component {
   }
 }
 
-export default Table;
+export default Task;
