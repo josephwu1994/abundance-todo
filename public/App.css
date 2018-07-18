@@ -1,81 +1,125 @@
 .App {
-	margin: 10px 10px;
-	justify-content: center;
+  margin: 10px 10px;
+  justify-content: center;
 }
 /**----------------------------------------------Form------------------------------------------------------**/
 #create {
-	padding: 10px 10px;
-	width: 80%;
-	margin: 10px auto 10px auto;
-	box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
-	background: #4e54c8;  /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 10px 10px;
+  width: 80%;
+  margin: 10px auto 10px auto;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+  background: #4e54c8; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #priorityDD {
-	padding-left: 5px;
-	width: 100px;
+  padding-left: 5px;
+  width: 100px;
 }
 #submit {
-	width: 150px;
+  width: 150px;
 }
 /**----------------------------------------------Search----------------------------------------------------**/
 
 #search {
-	width: 80%;
-	margin: auto;
+  width: 20%;
+  margin: auto;
 }
 
 /**----------------------------------------------Attr------------------------------------------------------**/
 
-#attr{
-	display:flex;
-	flex-direction: row;
-	width:100%;
-	justify-content: space-evenly;
-	align-items: center;
-	margin-bottom: 2px;
+#attr {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2px;
+  padding: 0;
+  padding-left: 50px;
 }
 
-.titleAttr{
-	flex-grow: 1;
-	color: white;
-	background-color: black;
-	font-weight: 600;
-	height: 100%;
-	border-radius: 5px;
-	padding: 6px 12px;
-	margin: 0;
-	text-align: center;
-	width: 100%;
+.titleAttr {
+  flex-grow: 1;
+  color: white;
+  background-color: black;
+  font-weight: 600;
+  height: 100%;
+  border-radius: 5px;
+  padding: 6px 12px;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 #attr button {
-	outline: none;
-	flex-grow: 1;
-	width: 100%;
+  outline: none;
+  flex-grow: 1;
+  width: 100%;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 /**----------------------------------------------Table------------------------------------------------------**/
 
+.loading {
+  margin-top: 50px;
+  text-align: center;
+  position: relative;
+  left: 48vw;
+}
+
+.load {
+  text-align: center;
+  margin-top: 30px;
+  color: #4e54c8;
+  font-weight: 800;
+}
+
+.list {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
 #table {
-	display: flex;
-	flex-direction: row;
-	width: calc( 100vw - 50px);
-	justify-content: space-evenly;
-	align-items:center;
-	height: 3em;
-	border: 2px solid rgb(253, 3, 3);
-	color: red;
-	margin: 0px 15px;
-	padding: 0;
-	border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  min-height: 3em;
+  height: auto;
+  border: none;
+  margin: 0 auto 0 auto;
+  padding: 0;
+  border-radius: 5px;
 }
 
-#table div{
-	flex-grow: 1;
-	height: 100%;
-	width: 100%;
+.tableProp {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  line-height: 3em;
+  padding: 0 10px 0 10px;
 }
 
+.toggleBtn {
+  margin-left: -10px;
+  margin-right: 10px;
+}

@@ -1,33 +1,34 @@
 const path = require('path');
 
 module.exports = {
-	mode: 'development',
+  mode: 'development',
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         loader: 'babel-loader',
         test: /\.js$|\.jsx$/,
-				exclude: /node_modules/,
-				query: {
-          presets:[ 'es2015', 'react', 'stage-2' ]
-        }
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react', 'stage-2'],
+          plugins: ['emotion'],
+        },
       },
       {
         test: /.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
-	    {
-	    	test: /\.(png|svg|jpg|jpeg|gif)$/,
-		    use: [
-		    	'url-loader'
-		    ]
-	    }
-    ]
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        use: [
+          'url-loader',
+        ],
+      },
+    ],
   },
 
   // Dev tools are provided by webpack
@@ -37,8 +38,8 @@ module.exports = {
   // Configuration for webpack-dev-server
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-	  proxy: {
-		  "/api*": "http://localhost:8080"
-	  }
+    proxy: {
+      '/api*': 'http://localhost:8080',
+    },
   },
 };
