@@ -26,11 +26,12 @@ module.exports = {
   },
   // create new todo in Airtable
   addTodo: (req, res) => {
+    const priority = ['High', 'Medium', 'Low'];
     const data = {
       Status: req.body.status,
-      Priority: req.body.priority,
+      Priority: priority[req.body.priority],
       Assignment: req.body.title,
-      'Due Date': req.body.startDate.slice(0, 10)
+      'Due Date': req.body.date.slice(0, 10),
     };
     base('Assignment').create(data, (err, todo) => {
       if (err) console.log(err);
@@ -43,8 +44,7 @@ module.exports = {
   // update todo status
   updateTodo: (req, res) => {
     base('Assignment').update(
-      req.body.id,
-      {
+      req.body.id, {
         Status: req.body.Status,
       },
       (err, record) => {
