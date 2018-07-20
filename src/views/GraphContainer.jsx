@@ -4,27 +4,21 @@ import { PacmanLoader } from 'react-spinners';
 
 import Graph from './Graph.jsx';
 
-const mapStateToProps = ({ todos }) => {
-  return {todos}
+const mapStateToProps = (store) => {
+  return {todos: store.todos}
 }
 
 class GraphContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [],
+      todos: this.props.todos,
       loading: true,
     };
   }
 
   componentDidMount() {
-    fetch('/getAll')
-      .then(res => res.json())
-      .then(todos => this.setState({ todos, loading: false }));
-  }
-
-  componentWillUnmount(){
-    clearInterval(this.interval);
+    this.setState({loading: false});
   }
 
   render() {

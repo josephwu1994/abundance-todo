@@ -45,7 +45,7 @@ class Input extends Component {
         .then(res => res.json())
         .then(json => {
           addTodo(json);
-          this.props.handleNewTodo(json);
+          // this.props.handleNewTodo(json);
         })
         .catch(err => console.log("Failed to post todo " + err));
       this.setState({
@@ -115,4 +115,4 @@ class Input extends Component {
   }
 }
 
-export default connect({}, { addTodo })(Input);
+export default connect(null, { addTodo })(Input);

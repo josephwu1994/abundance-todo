@@ -4,7 +4,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import { Provider } from 'react-redux';
-import { CreateStore, createStore } from 'redux';
+import { createStore } from 'redux';
 import rootReducer from '../reducers';
 
 import Home from '../views/Home.jsx';

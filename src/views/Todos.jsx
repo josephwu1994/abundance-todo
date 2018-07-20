@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PacmanLoader } from 'react-spinners';
 import { connect } from 'react-redux';
-import { checkTodo, deleteTodo } from '../store/actions/index'
+import { checkTodo, deleteTodo, initiateTodo} from '../store/actions/index'
 
 import Filter from '../components/Filter.jsx';
 import TodoCard from '../components/TodoCard.jsx';
@@ -24,6 +24,7 @@ class Todos extends Component {
     fetch('/getAll')
       .then(res => res.json())
       .then(todos => {
+        initiateTodo(todos);
         this.setState({ todos, loading: false });
       });
   }
@@ -46,6 +47,7 @@ class Todos extends Component {
     const todos = this.state.todos.filter(todo => {
       return todo.id !== id;
     })
+    deleteTodo(id);
     this.setState({todos});
     fetch('/deleteTodo', {
       method: 'DELETE',
@@ -70,6 +72,7 @@ class Todos extends Component {
           body: JSON.stringify({ id: todos[i].id, Status: todos[i].Status })
         })
         .catch(err => console.log('failed to update ' + err));
+        checkTodo(i);
         break;
       }
     }
@@ -115,4 +118,4 @@ class Todos extends Component {
   }
 }
 
-export default connect({}, {deleteTodo, checkTodo})(Todos);
+export default connect(null, {deleteTodo, checkTodo, initiateTodo})(Todos);
