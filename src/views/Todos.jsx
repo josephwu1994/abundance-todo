@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { PacmanLoader } from 'react-spinners';
 import { connect } from 'react-redux';
-import { checkTodo, deleteTodo, initiateTodo} from '../store/actions/index'
+import { checkTodo, deleteTodo, initiateTodo } from '../store/actions/'
 
 import Filter from '../components/Filter.jsx';
 import TodoCard from '../components/TodoCard.jsx';
 import Search from '../components/Search.jsx';
+
+const mapDispatchToProps = dispatch => ({
+  checkTodo: (index) => dispatch(checkTodo(index)),
+  deleteTodo: (id) => dispatch(deleteTodo(id)),
+  initiateTodo: (todos) => dispatch(initiateTodo(todos)),
+})
 
 class Todos extends Component {
   constructor(props) {
@@ -24,7 +30,7 @@ class Todos extends Component {
     fetch('/getAll')
       .then(res => res.json())
       .then(todos => {
-        initiateTodo(todos);
+        this.props.initiateTodo(todos);
         this.setState({ todos, loading: false });
       });
   }
@@ -47,7 +53,7 @@ class Todos extends Component {
     const todos = this.state.todos.filter(todo => {
       return todo.id !== id;
     })
-    deleteTodo(id);
+    this.props.deleteTodo(id);
     this.setState({todos});
     fetch('/deleteTodo', {
       method: 'DELETE',
@@ -72,7 +78,7 @@ class Todos extends Component {
           body: JSON.stringify({ id: todos[i].id, Status: todos[i].Status })
         })
         .catch(err => console.log('failed to update ' + err));
-        checkTodo(i);
+        this.props.checkTodo(i);
         break;
       }
     }
@@ -118,4 +124,4 @@ class Todos extends Component {
   }
 }
 
-export default connect(null, {deleteTodo, checkTodo, initiateTodo})(Todos);
+export default connect(null, mapDispatchToProps)(Todos);

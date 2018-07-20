@@ -10,6 +10,10 @@ import FlatButton from "material-ui/FlatButton";
 import { connect } from 'react-redux';
 import { addTodo } from '../store/actions/index';
 
+const mapDispatchToProps = dispatch => ({
+  addTodo: (todo) => dispatch(addTodo(todo)),
+})
+
 class Input extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +48,7 @@ class Input extends Component {
       })
         .then(res => res.json())
         .then(json => {
-          addTodo(json);
+          this.props.addTodo(json);
           // this.props.handleNewTodo(json);
         })
         .catch(err => console.log("Failed to post todo " + err));
@@ -115,4 +119,4 @@ class Input extends Component {
   }
 }
 
-export default connect(null, { addTodo })(Input);
+export default connect(null, mapDispatchToProps)(Input);

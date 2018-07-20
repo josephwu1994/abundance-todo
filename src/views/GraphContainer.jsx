@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PacmanLoader } from 'react-spinners';
-
+import _ from 'lodash';
 import Graph from './Graph.jsx';
 
 const mapStateToProps = (store) => {
@@ -12,13 +12,19 @@ class GraphContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: this.props.todos,
+      todos: [],
       loading: true,
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(prevProps.todos, this.props.todos)) {
+      this.setState({ todos: this.props.todos, loading: false});
+    }
+  }
+
   componentDidMount() {
-    this.setState({loading: false});
+    this.setState({todos: this.props.todos, });
   }
 
   render() {
