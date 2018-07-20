@@ -1,6 +1,8 @@
-.App {
+#root {
   margin: 10px 10px;
   justify-content: center;
+  background-color:#f4fbfde5;
+  height: 100vh;
 }
 
 /**----------------------------------------------Search----------------------------------------------------**/
@@ -10,7 +12,7 @@
   margin: auto;
 }
 
-/**----------------------------------------------Table------------------------------------------------------**/
+/**----------------------------------------------Todos------------------------------------------------------**/
 
 .loading {
   margin-top: 50px;
@@ -36,6 +38,16 @@
   margin-top: 5px;
 }
 
+/* ---------------------------------------Filter------------------------------------- */
+
+.filterContainer{
+  display: flex;
+  margin: auto;
+  width: 23.5vw;
+}
+
+/* ---------------------------------------TodoCard------------------------------------- */
+
 #table {
   display: flex;
   width: 79%;
@@ -51,12 +63,12 @@
 
 .todoContainer {
   width: 80%;
-  margin-right: 50px;
 }
 
 .toggleBtn {
-  margin-left: -10px;
-  margin-right: 10px;
+  margin-left: 10px;
+  display:flex;
+  width: 5%;
 }
 
 .task {
@@ -68,9 +80,37 @@
   border-radius: 25px;
   position: absolute;
   opacity: 0.85;
-  min-width: 250px;
-  text-align: left;
-  right: 5vw;
-  top: 12px;
+  min-width: 100px;
+  text-align: center;
+  right: 1vw;
+  top: ㄚpx;
   color: rgba(255, 255, 255, 0.836);
 }
+
+/* ---------------------------------------GraphTodos------------------------------------ */
+
+.graphTodo{
+  
+}
+
+/* ---------------------------------------GraphTodoCard------------------------------------- */
+
+.graphTodoCard{
+  width: 100%;
+}
+
+.graphCardPriority{
+  display: inline-block;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  border-radius: 15px;
+  position: absolute;
+  opacity: 0.85;
+  min-width: 80px;
+  text-align: center;
+  right: 5px;
+  top: 19px;
+  color: rgba(255, 255, 255, 0.836);
+}
+

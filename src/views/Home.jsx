@@ -20,7 +20,7 @@ class Home extends Component {
     return (
       <div className="mainContainer">
         <Input handleNewTodo={this.handleNewTodo} />
-        <Todos newTodo={this.state.newTodo} />
+        <Todos newTodo={this.state.newTodo} handleNewTodo={this.handleNewTodo} />
       </div>
     );
   }

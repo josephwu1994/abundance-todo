@@ -80,7 +80,7 @@ class Filter extends Component {
     return (
       <div className="filterContainer">
         <SelectField
-          style={{ width: "50%" }}
+          style={{ width: "20%" }}
           floatingLabelText="Filter By"
           value={this.state.value}
           onChange={this.handleChange}
@@ -90,7 +90,7 @@ class Filter extends Component {
           <MenuItem value={2} primaryText="Due Date" />
         </SelectField>
         <SelectField
-          style={{ width: "50%" }}
+          style={{ width: "20%" }}
           floatingLabelText="Order"
           value={this.state.order}
           onChange={this.handleChangeOrder}

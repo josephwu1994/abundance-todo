@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { PacmanLoader } from "react-spinners";
+import React, { Component } from 'react';
+import { PacmanLoader } from 'react-spinners';
 
-import Filter from "../components/Filter.jsx";
-import TodoCard from "../components/TodoCard.jsx";
-import Search from "../components/Search.jsx";
+import Filter from '../components/Filter.jsx';
+import TodoCard from '../components/TodoCard.jsx';
+import Search from '../components/Search.jsx';
 
 class Todos extends Component {
   constructor(props) {
@@ -15,10 +15,11 @@ class Todos extends Component {
     };
     this.filter = this.filter.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    fetch("/getAll")
+    fetch('/getAll')
       .then(res => res.json())
       .then(todos => {
         this.setState({ todos, loading: false });
@@ -26,34 +27,46 @@ class Todos extends Component {
   }
 
   componentWillReceiveProps(prop) {
-    console.log("got here");
-    if (typeof prop.id !== undefined) {
+    if (prop.newTodo.id !== undefined) {
       const todos = this.state.todos;
       todos.push(prop.newTodo);
       this.setState({ todos });
+      this.props.handleNewTodo({});
     }
   }
 
   filter(searchResult) {
-    console.log(searchResult);
-    if (searchResult === "") this.setState({ searchResult: this.state.todos });
+    if (searchResult === '') this.setState({ searchResult: this.state.todos });
     else this.setState({ searchResult });
+  }
+
+  handleDelete(id) {
+    const todos = this.state.todos.filter(todo => {
+      return todo.id !== id;
+    })
+    this.setState({todos});
+    fetch('/deleteTodo', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({id})
+    })
+    .catch(err => console.error(`Failed to delete ${err}`));
   }
 
   handleCheck(id) {
     const obj = this.state.todos;
     for (let i = 0; i < obj.length; i++) {
       if (obj[i].id === id) {
-        if (obj[i].Status === "In Progress") obj[i].Status = "Complete";
-        else obj[i].Status = "In Progress";
+        if (obj[i].Status === 'In Progress') obj[i].Status = 'Complete';
+        else obj[i].Status = 'In Progress';
         this.setState({
           todos: [...obj.slice(0, i), obj[i], ...obj.slice(i + 1)]
         });
-        fetch("/updateTodo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetch('/updateTodo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: obj[i].id, Status: obj[i].Status })
-        }).catch(err => console.log("failed to update " + err));
+        }).catch(err => console.log('failed to update ' + err));
         break;
       }
     }
@@ -62,11 +75,11 @@ class Todos extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <div className="todosContainer">
-          <div className="loading">
-            <PacmanLoader color="#4e54c8" />
+        <div className='todosContainer'>
+          <div className='loading'>
+            <PacmanLoader color='#4e54c8' />
           </div>
-          <div className="load">Loading ... </div>
+          <div className='load'>Loading ... </div>
         </div>
       );
     } else {
@@ -74,23 +87,25 @@ class Todos extends Component {
       if (this.state.searchResult.length > 0) todos = this.state.searchResult;
       const displayArr = todos.map(todo => {
         let style = {};
-        if (todo.Status === "Complete")
-          style.boxShadow = "#64B5F6 0px 1px 6px, #64B5F6 0px 1px 4px";
+        if (todo.Status === 'Complete') {
+          style.backgroundColor='rgba(0, 0, 0, 0.3)';
+        }
         return (
-          <div className="list" key={todo.id}>
+          <div className='list' key={todo.id}>
             <TodoCard
               style={style}
               todo={todo}
               handleCheck={this.handleCheck}
+              handleDelete={this.handleDelete}
             />
           </div>
         );
       });
       return (
-        <div className="todosContainer">
+        <div className='todosContainer'>
           <Filter todos={todos} filter={this.filter} />
           <Search todos={todos} filter={this.filter} />
-          <div className="listContainer">{displayArr}</div>
+          <div className='listContainer'>{displayArr}</div>
         </div>
       );
     }

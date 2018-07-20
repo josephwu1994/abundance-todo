@@ -52,5 +52,12 @@ module.exports = {
         res.send(record);
       }
     );
-  }
+  },
+  // delete todo
+  deleteTodo: (req, res) => {
+    base('Assignment').destroy(req.body.id, (err, deletedRecord) => {
+      if (err) console.error(err);
+      res.send(deletedRecord.id);
+    });
+  },
 };
