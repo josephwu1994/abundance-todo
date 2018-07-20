@@ -1,33 +1,28 @@
-import _ from 'lodash';
-
 const defaultState = {
   todos: [],
 };
 
-const todos = (state = _.cloneDeep(defaultState), action) => {
+const todos = (state = Object.assign({}, defaultState), action) => {
   switch (action.type) {
     case 'INITIATE_TODO': {
       return Object.assign({}, { todos: action.todos });
     }
     case 'ADD_TODO': {
-      const updatedTodos = _.cloneDeep(state.todos);
-      updatedTodos.push(action.todo);
-      return Object.assign({}, { todos: updatedTodos },);
+      const arr = state.todos.slice();
+      arr.push(action.todo);
+      return { todos: arr };
     }
     case 'CHECK_TODO': {
-      const updatedTodoIndex = _.findIndex(state.todos, { id: action.id });
-      const updatedTodos = _.cloneDeep(state.todos);
-      if (updatedTodos[updatedTodoIndex].Status === 'In Progress') updatedTodos[updatedTodoIndex].Status = 'Complete';
-      else updatedTodos[updatedTodoIndex].Status = 'In Progress';
-      return { todos: updatedTodos };
+      const index = state.todos.findIndex(todo => todo.id === action.id);
+      const updatedTodos = state.todos;
+      if (updatedTodos[index].Status === 'In Progress') updatedTodos[index].Status = 'Complete';
+      else updatedTodos[index].Status = 'In Progress';
+      return { todos: [...updatedTodos.slice(0, index), updatedTodos[index], ...updatedTodos.slice(index + 1)] };
     }
     case 'DELETE_TODO': {
-      const arr = state.todos.filter((todo) => {
-        return todo.id !== action.id;
-      });
-      return Object.assign({}, { todos: arr });
+      const afterDeletedTodo = state.todos.filter(todo => todo.id !== action.id);
+      return { todos: afterDeletedTodo };
     }
-
     default:
       return state;
   }

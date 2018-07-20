@@ -3,8 +3,51 @@ import { Card, CardTitle } from "material-ui/Card";
 import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import { connect } from 'react-redux';
+import { checkTodo, deleteTodo } from '../store/actions/'
+
+const mapStateToProps = ( store ) => ({
+  todos: store.todos.todos,
+})
+
+const mapDispatchToProps = dispatch => ({
+  checkTodo: (index) => dispatch(checkTodo(index)),
+  deleteTodo: (id) => dispatch(deleteTodo(id)),
+})
 
 class TodoCard extends Component {
+  constructor(){
+    super();
+    this.handleCheck = this.handleCheck.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(id) {
+    this.props.deleteTodo(id);
+    fetch('/deleteTodo', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({id})
+    })
+    .catch(err => console.error(`Failed to delete ${err}`));
+  }
+
+  handleCheck(id) {
+    this.props.checkTodo(id);
+    const todos = this.props.todos;
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === id) {
+        fetch('/updateTodo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: id, Status: todos[i].Status })
+        })
+        .catch(err => console.log('failed to update ' + err));
+        break;
+      }
+    }
+  }
+
   render() {
     const todo = this.props.todo;
     const titleColor = {
@@ -30,7 +73,7 @@ class TodoCard extends Component {
             marginLeft: '-50px',
             marginRight: '10px',
           }}
-          onClick={() => {this.props.handleDelete(todo.id)}}
+          onClick={() => {this.handleDelete(todo.id)}}
         >
           <DeleteForever />
         </FloatingActionButton>
@@ -42,7 +85,7 @@ class TodoCard extends Component {
           <Checkbox
             className='toggleBtn'
             checked={todo.Status==='Complete'}
-            onCheck={() => this.props.handleCheck(todo.id)}
+            onCheck={() => {this.handleCheck(todo.id)}}
             style={{width: '20px'}}
           />
           <CardTitle
@@ -72,4 +115,4 @@ class TodoCard extends Component {
   }
 }
 
-export default TodoCard;
+export default connect(mapStateToProps, mapDispatchToProps)(TodoCard);

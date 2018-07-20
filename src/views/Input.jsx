@@ -48,7 +48,6 @@ class Input extends Component {
       })
         .then(res => res.json())
         .then(json => {
-          
           this.props.addTodo(json);
         })
         .catch(err => console.log("Failed to post todo " + err));

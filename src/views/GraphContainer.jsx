@@ -4,9 +4,9 @@ import { PacmanLoader } from 'react-spinners';
 import _ from 'lodash';
 import Graph from './Graph.jsx';
 
-const mapStateToProps = (store) => {
-  return {todos: store.todos.todos}
-}
+const mapStateToProps = (store) => ({
+  todos: store.todos.todos
+})
 
 class GraphContainer extends Component {
   constructor(props) {

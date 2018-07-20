@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { PacmanLoader } from 'react-spinners';
 import { connect } from 'react-redux';
-import { checkTodo, deleteTodo, initiateTodo } from '../store/actions/'
+import { initiateTodo } from '../store/actions/'
 
 import Filter from '../components/Filter.jsx';
 import TodoCard from '../components/TodoCard.jsx';
 import Search from '../components/Search.jsx';
 
-const mapStateToProps = ( store ) => {
-  console.log(store);
-  return ({
+const mapStateToProps = ( store ) => ({
   todos: store.todos.todos,
-})}
+})
+
 const mapDispatchToProps = dispatch => ({
-  checkTodo: (index) => dispatch(checkTodo(index)),
-  deleteTodo: (id) => dispatch(deleteTodo(id)),
   initiateTodo: (todos) => dispatch(initiateTodo(todos)),
 })
 
@@ -26,8 +23,6 @@ class Todos extends Component {
       searchResult: []
     };
     this.filter = this.filter.bind(this);
-    this.handleCheck = this.handleCheck.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -39,38 +34,15 @@ class Todos extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(prevProps.todos, this.props.todos)) {
+      this.setState({ searchResult: []});
+    }
+  }
+
   filter(searchResult) {
     if (searchResult === '') this.setState({ searchResult: this.props.todos });
     else this.setState({ searchResult });
-  }
-
-  handleDelete(id) {
-    this.props.deleteTodo(id);
-    fetch('/deleteTodo', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({id})
-    })
-    .catch(err => console.error(`Failed to delete ${err}`));
-  }
-
-  handleCheck(id) {
-    this.props.checkTodo(id);
-    const todos = this.props.todos;
-    let status = '';
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].id === id) {
-        if (todos[i].Status === 'In Progress') status = 'Complete';
-        else status = 'In Progress';
-        fetch('/updateTodo', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: id, Status: status })
-        })
-        .catch(err => console.log('failed to update ' + err));
-        break;
-      }
-    }
   }
 
   render() {
