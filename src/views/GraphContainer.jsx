@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { PacmanLoader } from 'react-spinners';
 
 import Graph from './Graph.jsx';
+
+const mapStateToProps = ({ todos }) => {
+  return {todos}
+}
 
 class GraphContainer extends Component {
   constructor(props) {
@@ -13,11 +18,9 @@ class GraphContainer extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval( () => {
-      fetch('/getAll')
-        .then(res => res.json())
-        .then(todos => this.setState({ todos, loading: false }));
-    }, 1000)
+    fetch('/getAll')
+      .then(res => res.json())
+      .then(todos => this.setState({ todos, loading: false }));
   }
 
   componentWillUnmount(){
@@ -43,4 +46,4 @@ class GraphContainer extends Component {
     }
   }
 }
-export default GraphContainer;
+export default connect(mapStateToProps, null)(GraphContainer);

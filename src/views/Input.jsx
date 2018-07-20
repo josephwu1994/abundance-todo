@@ -7,6 +7,8 @@ import DatePicker from "material-ui/DatePicker";
 import MenuItem from "material-ui/MenuItem";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import { connect } from 'react-redux';
+import { addTodo } from '../store/actions/index';
 
 class Input extends Component {
   constructor(props) {
@@ -42,6 +44,7 @@ class Input extends Component {
       })
         .then(res => res.json())
         .then(json => {
+          addTodo(json);
           this.props.handleNewTodo(json);
         })
         .catch(err => console.log("Failed to post todo " + err));
@@ -112,4 +115,4 @@ class Input extends Component {
   }
 }
 
-export default Input;
+export default connect({}, { addTodo })(Input);

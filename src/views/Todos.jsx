@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { PacmanLoader } from 'react-spinners';
+import { connect } from 'react-redux';
+import { checkTodo, deleteTodo } from '../store/actions/index'
 
 import Filter from '../components/Filter.jsx';
 import TodoCard from '../components/TodoCard.jsx';
@@ -54,19 +56,20 @@ class Todos extends Component {
   }
 
   handleCheck(id) {
-    const obj = this.state.todos;
-    for (let i = 0; i < obj.length; i++) {
-      if (obj[i].id === id) {
-        if (obj[i].Status === 'In Progress') obj[i].Status = 'Complete';
-        else obj[i].Status = 'In Progress';
+    const todos = this.state.todos;
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === id) {
+        if (todos[i].Status === 'In Progress') todos[i].Status = 'Complete';
+        else todos[i].Status = 'In Progress';
         this.setState({
-          todos: [...obj.slice(0, i), obj[i], ...obj.slice(i + 1)]
+          todos: [...todos.slice(0, i), todos[i], ...todos.slice(i + 1)]
         });
         fetch('/updateTodo', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: obj[i].id, Status: obj[i].Status })
-        }).catch(err => console.log('failed to update ' + err));
+          body: JSON.stringify({ id: todos[i].id, Status: todos[i].Status })
+        })
+        .catch(err => console.log('failed to update ' + err));
         break;
       }
     }
@@ -112,4 +115,4 @@ class Todos extends Component {
   }
 }
 
-export default Todos;
+export default connect({}, {deleteTodo, checkTodo})(Todos);
