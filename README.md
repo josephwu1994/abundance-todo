@@ -10,11 +10,11 @@ $npm install
 
 # Use
 
-#### First run webpack
+#### Run webpack
 ```
 $npm run build
 ```
-#### then start server at localhost:3000
+#### Start server at localhost:3000
 ```
 $npm start
 ```
