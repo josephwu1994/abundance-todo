@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Graph from './Graph.jsx';
 
 const mapStateToProps = (store) => {
-  return {todos: store.todos}
+  return {todos: store.todos.todos}
 }
 
 class GraphContainer extends Component {
@@ -24,7 +24,11 @@ class GraphContainer extends Component {
   }
 
   componentDidMount() {
-    this.setState({todos: this.props.todos, });
+    fetch('/getall')
+    .then(res => res.json())
+    .then(todos => {
+      this.setState({todos: todos });
+    })
   }
 
   render() {

@@ -7,6 +7,11 @@ import Filter from '../components/Filter.jsx';
 import TodoCard from '../components/TodoCard.jsx';
 import Search from '../components/Search.jsx';
 
+const mapStateToProps = ( store ) => {
+  console.log(store);
+  return ({
+  todos: store.todos.todos,
+})}
 const mapDispatchToProps = dispatch => ({
   checkTodo: (index) => dispatch(checkTodo(index)),
   deleteTodo: (id) => dispatch(deleteTodo(id)),
@@ -18,7 +23,6 @@ class Todos extends Component {
     super(props);
     this.state = {
       loading: true,
-      todos: [],
       searchResult: []
     };
     this.filter = this.filter.bind(this);
@@ -28,33 +32,20 @@ class Todos extends Component {
 
   componentDidMount() {
     fetch('/getAll')
-      .then(res => res.json())
-      .then(todos => {
-        this.props.initiateTodo(todos);
-        this.setState({ todos, loading: false });
-      });
-  }
-
-  componentWillReceiveProps(prop) {
-    if (prop.newTodo.id !== undefined) {
-      const todos = this.state.todos;
-      todos.push(prop.newTodo);
-      this.setState({ todos });
-      this.props.handleNewTodo({});
-    }
+    .then(res => res.json())
+    .then(todos => {
+      this.props.initiateTodo(todos);
+      this.setState({loading: false});
+    });
   }
 
   filter(searchResult) {
-    if (searchResult === '') this.setState({ searchResult: this.state.todos });
+    if (searchResult === '') this.setState({ searchResult: this.props.todos });
     else this.setState({ searchResult });
   }
 
   handleDelete(id) {
-    const todos = this.state.todos.filter(todo => {
-      return todo.id !== id;
-    })
     this.props.deleteTodo(id);
-    this.setState({todos});
     fetch('/deleteTodo', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json'},
@@ -64,21 +55,19 @@ class Todos extends Component {
   }
 
   handleCheck(id) {
-    const todos = this.state.todos;
+    this.props.checkTodo(id);
+    const todos = this.props.todos;
+    let status = '';
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id === id) {
-        if (todos[i].Status === 'In Progress') todos[i].Status = 'Complete';
-        else todos[i].Status = 'In Progress';
-        this.setState({
-          todos: [...todos.slice(0, i), todos[i], ...todos.slice(i + 1)]
-        });
+        if (todos[i].Status === 'In Progress') status = 'Complete';
+        else status = 'In Progress';
         fetch('/updateTodo', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: todos[i].id, Status: todos[i].Status })
+          body: JSON.stringify({ id: id, Status: status })
         })
         .catch(err => console.log('failed to update ' + err));
-        this.props.checkTodo(i);
         break;
       }
     }
@@ -95,7 +84,7 @@ class Todos extends Component {
         </div>
       );
     } else {
-      let todos = this.state.todos;
+      let todos = this.props.todos;
       if (this.state.searchResult.length > 0) todos = this.state.searchResult;
       const displayArr = todos.map(todo => {
         let style = {};
@@ -124,4 +113,4 @@ class Todos extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Todos);
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);

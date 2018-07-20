@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import GraphTodoCard from '../components/GraphTodoCard.jsx';
 
 class GraphTodos extends Component{
-  constructor(props){
-    super(props)
-  }
-
   render(){
     const high = [];
     const medium = [];

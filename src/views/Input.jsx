@@ -48,8 +48,8 @@ class Input extends Component {
       })
         .then(res => res.json())
         .then(json => {
+          
           this.props.addTodo(json);
-          // this.props.handleNewTodo(json);
         })
         .catch(err => console.log("Failed to post todo " + err));
       this.setState({

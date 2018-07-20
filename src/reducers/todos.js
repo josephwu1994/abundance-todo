@@ -7,28 +7,25 @@ const defaultState = {
 const todos = (state = _.cloneDeep(defaultState), action) => {
   switch (action.type) {
     case 'INITIATE_TODO': {
-      return { todos: action.todos };
+      return Object.assign({}, { todos: action.todos });
     }
     case 'ADD_TODO': {
-      return Object.assign({}, state, {
-        todos: [...state.todos, ...action.todo],
-      });
+      const updatedTodos = _.cloneDeep(state.todos);
+      updatedTodos.push(action.todo);
+      return Object.assign({}, { todos: updatedTodos },);
     }
     case 'CHECK_TODO': {
-      const todo = state.todos.slice()[action.index]
-      if (todo.Status === 'In Progress') todo.Status = 'Complete';
-      else todo.Status = 'In Progress';
-      return ({
-        todos: [...state.todos.slice(0, action.index), todo, ...state.todos.slice(action.index + 1)]
-      });
+      const updatedTodoIndex = _.findIndex(state.todos, { id: action.id });
+      const updatedTodos = _.cloneDeep(state.todos);
+      if (updatedTodos[updatedTodoIndex].Status === 'In Progress') updatedTodos[updatedTodoIndex].Status = 'Complete';
+      else updatedTodos[updatedTodoIndex].Status = 'In Progress';
+      return { todos: updatedTodos };
     }
     case 'DELETE_TODO': {
       const arr = state.todos.filter((todo) => {
         return todo.id !== action.id;
       });
-      return ({
-        todos: arr,
-      });
+      return Object.assign({}, { todos: arr });
     }
 
     default:

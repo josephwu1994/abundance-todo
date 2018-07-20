@@ -4,9 +4,9 @@ export const addTodo = todo => ({
   todo,
 });
 
-export const checkTodo = index => ({
+export const checkTodo = id => ({
   type: 'CHECK_TODO',
-  index,
+  id,
 });
 
 export const deleteTodo = id => ({
