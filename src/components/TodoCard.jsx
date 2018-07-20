@@ -23,6 +23,7 @@ class TodoCard extends Component {
     return (
       <div id="table">
         <FloatingActionButton 
+          secondary={true}
           mini={true} 
           style={{
             ...buttonShow[todo.Status],
